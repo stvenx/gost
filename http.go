@@ -329,7 +329,12 @@ func (h *httpHandler) authenticate(conn net.Conn, req *http.Request, resp *http.
 			if !strings.HasPrefix(url, "http") {
 				url = "http://" + url
 			}
-			if r, err := http.Get(url); err == nil {
+			c := &http.Client{}
+			request, _ := http.NewRequest("GET", url, nil)
+			rHost, _, _ := net.SplitHostPort(conn.RemoteAddr().String())
+			request.Header.Add("X-Forwarded-For", rHost)
+
+			if r, err := c.Do(request); err == nil {
 				resp = r
 			}
 		case "host":
