@@ -30,11 +30,15 @@ type route struct {
 	ServeNodes stringList
 	ChainNodes stringList
 	Retries    int
+	Mark       int
+	Interface  string
 }
 
 func (r *route) parseChain() (*gost.Chain, error) {
 	chain := gost.NewChain()
 	chain.Retries = r.Retries
+	chain.Mark = r.Mark
+	chain.Interface = r.Interface
 	gid := 1 // group ID
 
 	for _, ns := range r.ChainNodes {
@@ -208,6 +212,12 @@ func parseChainNode(ns string) (nodes []gost.Node, err error) {
 			Timeout:     timeout,
 			IdleTimeout: node.GetDuration("idle"),
 		}
+		if config.KeepAlive {
+			config.KeepAlivePeriod = node.GetDuration("ttl")
+			if config.KeepAlivePeriod == 0 {
+				config.KeepAlivePeriod = 10 * time.Second
+			}
+		}
 
 		if cipher := node.Get("cipher"); cipher != "" {
 			sum := sha256.Sum256([]byte(cipher))
@@ -231,6 +241,8 @@ func parseChainNode(ns string) (nodes []gost.Node, err error) {
 		tr = gost.FakeTCPTransporter()
 	case "udp":
 		tr = gost.UDPTransporter()
+	case "vsock":
+		tr = gost.VSOCKTransporter()
 	default:
 		tr = gost.TCPTransporter()
 	}
@@ -454,6 +466,12 @@ func (r *route) GenRouters() ([]router, error) {
 				Timeout:     timeout,
 				IdleTimeout: node.GetDuration("idle"),
 			}
+			if config.KeepAlive {
+				config.KeepAlivePeriod = node.GetDuration("ttl")
+				if config.KeepAlivePeriod == 0 {
+					config.KeepAlivePeriod = 10 * time.Second
+				}
+			}
 			if cipher := node.Get("cipher"); cipher != "" {
 				sum := sha256.Sum256([]byte(cipher))
 				config.Key = sum[:]
@@ -473,6 +491,8 @@ func (r *route) GenRouters() ([]router, error) {
 				chain.Nodes()[len(chain.Nodes())-1].Client.Transporter = gost.SSHForwardTransporter()
 			}
 			ln, err = gost.TCPListener(node.Addr)
+		case "vsock":
+			ln, err = gost.VSOCKListener(node.Addr)
 		case "udp":
 			ln, err = gost.UDPListener(node.Addr, &gost.UDPListenConfig{
 				TTL:       ttl,
@@ -648,6 +668,8 @@ func (r *route) GenRouters() ([]router, error) {
 			gost.IPsHandlerOption(ips),
 			gost.TCPModeHandlerOption(node.GetBool("tcp")),
 			gost.IPRoutesHandlerOption(tunRoutes...),
+			gost.ProxyAgentHandlerOption(node.Get("proxyAgent")),
+			gost.HTTPTunnelHandlerOption(node.GetBool("httpTunnel")),
 		)
 
 		rt := router{

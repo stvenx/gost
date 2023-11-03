@@ -1,50 +1,63 @@
 module github.com/ginuerzh/gost
 
-go 1.13
+go 1.20
+
+replace github.com/templexxx/cpu v0.0.7 => github.com/templexxx/cpu v0.0.10-0.20211111114238-98168dcec14a
 
 require (
-	git.torproject.org/pluggable-transports/goptlib.git v0.0.0-20180321061416-7d56ec4f381e
-	git.torproject.org/pluggable-transports/obfs4.git v0.0.0-20181103133120-08f4d470188e
+	git.torproject.org/pluggable-transports/goptlib.git v1.2.0
 	github.com/LiamHaworth/go-tproxy v0.0.0-20190726054950-ef7efd7f24ed
-	github.com/Yawning/chacha20 v0.0.0-20170904085104-e3b1f968fc63 // indirect
-	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
-	github.com/bifurcation/mint v0.0.0-20181105071958-a14404e9a861 // indirect
-	github.com/cheekybits/genny v1.0.0 // indirect
-	github.com/coreos/go-iptables v0.4.5 // indirect
-	github.com/dchest/siphash v1.2.1 // indirect
-	github.com/docker/libcontainer v2.2.1+incompatible
-	github.com/ginuerzh/gosocks4 v0.0.1
-	github.com/ginuerzh/gosocks5 v0.2.0
-	github.com/ginuerzh/tls-dissector v0.0.2-0.20200224064855-24ab2b3a3796
-	github.com/go-gost/relay v0.1.0
-	github.com/go-log/log v0.1.0
+	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
+	github.com/go-gost/gosocks4 v0.0.1
+	github.com/go-gost/gosocks5 v0.3.0
+	github.com/go-gost/relay v0.1.1-0.20211123134818-8ef7fd81ffd7
+	github.com/go-gost/tls-dissector v0.0.2-0.20220408131628-aac992c27451
+	github.com/go-log/log v0.2.0
 	github.com/gobwas/glob v0.2.3
-	github.com/golang/mock v1.2.0 // indirect
-	github.com/google/gopacket v1.1.17 // indirect
-	github.com/gorilla/websocket v1.4.0 // indirect
-	github.com/hashicorp/golang-lru v0.5.0 // indirect
-	github.com/klauspost/compress v1.4.1
-	github.com/klauspost/cpuid v1.2.0 // indirect
-	github.com/klauspost/reedsolomon v1.7.0 // indirect
-	github.com/lucas-clemente/aes12 v0.0.0-20171027163421-cd47fb39b79f // indirect
-	github.com/lucas-clemente/quic-go v0.10.0
-	github.com/lucas-clemente/quic-go-certificates v0.0.0-20160823095156-d2f86524cced // indirect
-	github.com/miekg/dns v1.1.27
-	github.com/milosgajdos83/tenus v0.0.0-20190415114537-1f3ed00ae7d8
-	github.com/onsi/ginkgo v1.7.0 // indirect
-	github.com/onsi/gomega v1.4.3 // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/ryanuber/go-glob v0.0.0-20170128012129-256dc444b735
-	github.com/shadowsocks/go-shadowsocks2 v0.1.1-0.20200220141918-07b789296fe6
-	github.com/shadowsocks/shadowsocks-go v0.0.0-20170121203516-97a5c71f80ba
-	github.com/songgao/water v0.0.0-20190725173103-fd331bda3f4b
-	github.com/templexxx/cpufeat v0.0.0-20180724012125-cef66df7f161 // indirect
-	github.com/templexxx/xor v0.0.0-20181023030647-4e92f724b73b // indirect
-	github.com/tjfoc/gmsm v1.0.1 // indirect
+	github.com/gorilla/websocket v1.4.2
+	github.com/klauspost/compress v1.13.6
+	github.com/mdlayher/vsock v1.2.1
+	github.com/miekg/dns v1.1.47
+	github.com/quic-go/quic-go v0.32.0
+	github.com/ryanuber/go-glob v1.0.0
+	github.com/shadowsocks/go-shadowsocks2 v0.1.5
+	github.com/shadowsocks/shadowsocks-go v0.0.0-20200409064450-3e585ff90601
+	github.com/songgao/water v0.0.0-20200317203138-2b4b6d7c09d8
+	github.com/xtaci/kcp-go/v5 v5.6.1
+	github.com/xtaci/smux v1.5.16
 	github.com/xtaci/tcpraw v1.2.25
-	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
-	golang.org/x/net v0.0.0-20190923162816-aa69164e4478
-	gopkg.in/gorilla/websocket.v1 v1.4.0
-	gopkg.in/xtaci/kcp-go.v4 v4.3.2
-	gopkg.in/xtaci/smux.v1 v1.0.7
+	gitlab.com/yawning/obfs4.git v0.0.0-20220204003609-77af0cba934d
+	golang.org/x/crypto v0.5.0
+	golang.org/x/net v0.9.0
+)
+
+require (
+	filippo.io/edwards25519 v1.0.0-rc.1.0.20210721174708-390f27c3be20 // indirect
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
+	github.com/coreos/go-iptables v0.6.0 // indirect
+	github.com/dchest/siphash v1.2.2 // indirect
+	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
+	github.com/golang/mock v1.6.0 // indirect
+	github.com/google/gopacket v1.1.19 // indirect
+	github.com/google/pprof v0.0.0-20230131232505-5a9e8f65f08f // indirect
+	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/klauspost/reedsolomon v1.9.15 // indirect
+	github.com/mdlayher/socket v0.4.1 // indirect
+	github.com/onsi/ginkgo/v2 v2.8.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-19 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-20 v0.1.0 // indirect
+	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
+	github.com/templexxx/cpu v0.0.7 // indirect
+	github.com/templexxx/xorsimd v0.4.1 // indirect
+	github.com/tjfoc/gmsm v1.4.1 // indirect
+	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
+	gitlab.com/yawning/edwards25519-extra.git v0.0.0-20211229043746-2f91fcc9fbdb // indirect
+	golang.org/x/exp v0.0.0-20230203172020-98cc5a0785f9 // indirect
+	golang.org/x/mod v0.8.0 // indirect
+	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
+	golang.org/x/tools v0.6.0 // indirect
 )
